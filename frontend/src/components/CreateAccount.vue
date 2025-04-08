@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 
 const username = ref('')
+const email = ref('')
 const password = ref('')
+const confirmPassword = ref('')
 
 const handleSubmit = () => {
   // TODO: Add form submission logic
@@ -13,7 +15,7 @@ const handleSubmit = () => {
 <template>
   <div class="create-account">
     <form @submit.prevent="handleSubmit" class="account-form">
-      <h2>Connexion</h2>
+      <h2>Créer un compte</h2>
       
       <div class="form-group">
         <label for="username">Nom d'utilisateur</label>
@@ -26,6 +28,16 @@ const handleSubmit = () => {
         >
       </div>
 
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email"
+          type="email"
+          v-model="email"
+          required
+          placeholder="Entrez votre email"
+        >
+      </div>
 
       <div class="form-group">
         <label for="password">Mot de passe</label>
@@ -38,8 +50,18 @@ const handleSubmit = () => {
         >
       </div>
 
+      <div class="form-group">
+        <label for="confirmPassword">Confirmer le mot de passe</label>
+        <input 
+          id="confirmPassword"
+          type="password"
+          v-model="confirmPassword"
+          required
+          placeholder="Confirmez votre mot de passe"
+        >
+      </div>
 
-      <button type="submit" class="btn-submit">Se connecter</button>
+      <button type="submit" class="btn-submit">Créer mon compte</button>
     </form>
   </div>
 </template>
@@ -120,10 +142,10 @@ input:focus {
 </style> -->
 
 <template>
-  <div class="login-container">
-    <div class="login">
+  <div class="create-account-container">
+    <div class="create-account">
       <form @submit.prevent="handleSubmit" class="account-form">
-        <h2>Connexion</h2>
+        <h2>Créer un compte</h2>
         
         <div class="form-group">
           <label for="username">Nom d'utilisateur</label>
@@ -133,6 +155,17 @@ input:focus {
             v-model="username"
             required
             placeholder="Entrez votre nom d'utilisateur"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            id="email"
+            type="email"
+            v-model="email"
+            required
+            placeholder="Entrez votre email"
           >
         </div>
 
@@ -147,21 +180,32 @@ input:focus {
           >
         </div>
 
-        <button type="submit" class="btn-submit">Se connecter</button>
+        <div class="form-group">
+          <label for="confirmPassword">Confirmer le mot de passe</label>
+          <input 
+            id="confirmPassword"
+            type="password"
+            v-model="confirmPassword"
+            required
+            placeholder="Confirmez votre mot de passe"
+          >
+        </div>
+
+        <button type="submit" class="btn-submit">Créer mon compte</button>
       </form>
     </div>
   </div>
 </template>
 
 <style scoped>
-.login-container {
+.create-account-container {
   width: 100%;
   min-height: 100vh;
   padding-top: 80px; /* Adjusted for navbar */
   background: #f8fafc;
 }
 
-.login {
+.create-account {
   max-width: 500px;
   margin: 0 auto;
   padding: 2rem;
