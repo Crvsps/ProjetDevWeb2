@@ -1,26 +1,8 @@
-<template>
-    {{ msg }}
-</template>
-
-<script>
-
-export default {
-  name: 'App',
-  data(){
-    return {
-      msg: 'Hello world'
-    }
-  }
-}
+<script setup lang="ts">
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <HelloWorld msg=""/>
+  <router-view></router-view>
+</template>
