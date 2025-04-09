@@ -6,61 +6,66 @@
       :class="{ 'overlay-active': isSidebarOpen }"
       @click="toggleSidebar"
     ></div>
+    
     <!-- Sidebar -->
     <div class="sidebar" :class="{ 'sidebar-active': isSidebarOpen }">
       <div class="sidebar-header">
-        <h3>Menu</h3>
+        <h3>Menu Admin</h3>
         <button class="close-btn" @click="toggleSidebar">×</button>
       </div>
       <ul class="sidebar-menu">
-        <li><router-link to="/dashboard">Tableau de bord</router-link></li>
+        <li><router-link to="/dashboardAdmin">Tableau de bord</router-link></li>
+        <li><router-link to="/users">Gestion Utilisateurs</router-link></li>
         <li><router-link to="/settings">Paramètres</router-link></li>
-        <li><router-link to="/help">Aide</router-link></li>
-				<li><router-link to="/users">Utilisateurs</router-link></li>
-				<li><router-link to="/objects">Objets</router-link></li>
       </ul>
     </div>
 
     <!-- Navbar -->
     <nav class="navbar">
-    <div class="nav-left">
-      <button class="burger-btn" @click="toggleSidebar">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links">
-        <router-link to="/profil">Profil</router-link>
+      <div class="nav-left">
+        <button class="burger-btn" @click="toggleSidebar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links">
+          <router-link to="/profil">Profil Admin</router-link>
+        </div>
       </div>
-    </div>
-    <div class="nav-right">
-      <div class="nav-links">
-        <router-link to="/login">Se déconnecter</router-link>
+      <div class="nav-right">
+        <div class="nav-links">
+          <router-link to="/login">Se déconnecter</router-link>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
     <!-- Content -->
     <div class="content" :class="{ 'content-shifted': isSidebarOpen }">
-      <!-- Your dashboard content here -->
+      <!-- Admin dashboard content here -->
     </div>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'DashboardPage',
-  data() {
+import { defineComponent } from 'vue'
+
+interface DashboardAdminData {
+  isSidebarOpen: boolean
+}
+
+export default defineComponent({
+  name: 'DashboardAdminPage',
+  data(): DashboardAdminData {
     return {
       isSidebarOpen: false
     }
   },
   methods: {
-    toggleSidebar() {
+    toggleSidebar(): void {
       this.isSidebarOpen = !this.isSidebarOpen
     }
   }
-}
+})
 </script>
 
 <style scoped>
