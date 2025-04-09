@@ -1,26 +1,71 @@
 <template>
-  <nav class="navbar">
-    <ul class="nav-links">
-      <li><router-link to="/">Accueil</router-link></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <div class="dashboard-container">
+    <!-- Overlay -->
+    <div 
+      class="overlay" 
+      :class="{ 'overlay-active': isSidebarOpen }"
+      @click="toggleSidebar"
+    ></div>
+    <!-- Sidebar -->
+    <div class="sidebar" :class="{ 'sidebar-active': isSidebarOpen }">
+      <div class="sidebar-header">
+        <h3>Menu</h3>
+        <button class="close-btn" @click="toggleSidebar">×</button>
+      </div>
+      <ul class="sidebar-menu">
+        <li><router-link to="/dashboard">Tableau de bord</router-link></li>
+        <li><router-link to="/settings">Paramètres</router-link></li>
+        <li><router-link to="/help">Aide</router-link></li>
+      </ul>
+    </div>
 
-    <div class="nav-buttons">
-      <router-link to="/create-account" class="btn btn-signup">Profil</router-link>
-      <router-link to="/login" class="btn btn-login">Se déconnecter</router-link>
+    <!-- Navbar -->
+    <nav class="navbar">
+    <div class="nav-left">
+      <button class="burger-btn" @click="toggleSidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <router-link to="/profil">Profil</router-link>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-links">
+        <router-link to="/login">Se déconnecter</router-link>
+      </div>
     </div>
   </nav>
+
+    <!-- Content -->
+    <div class="content" :class="{ 'content-shifted': isSidebarOpen }">
+      <!-- Your dashboard content here -->
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'DashboardPage'
+  name: 'DashboardPage',
+  data() {
+    return {
+      isSidebarOpen: false
+    }
+  },
+  methods: {
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen
+    }
+  }
 }
 </script>
 
-
 <style scoped>
+.dashboard-container {
+  min-height: 100vh;
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -32,15 +77,159 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  z-index: 100;
 }
 
-.nav-links {
+.nav-left, .nav-right {
   display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
+  align-items: center;
+  gap: 1rem;
+}
+
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: none;
+  border: none;
+  cursor: pointer;
   padding: 0;
+}
+
+.burger-menu span {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.profile-btn, .logout-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.profile-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.logout-btn {
+  background-color: #ff4444;
+  color: white;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: left 0.3s ease;
+  z-index: 200;
+}
+
+.sidebar-active {
+  left: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 1rem;
+}
+
+.sidebar-menu li {
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.sidebar-menu a:hover {
+  background-color: #f5f5f5;
+}
+
+.content {
+  padding-top: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+.content-shifted {
+  margin-left: 250px;
+}
+
+@media (max-width: 768px) {
+  .content-shifted {
+    margin-left: 0;
+  }
+  
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+  
+  .sidebar-active {
+    left: 0;
+  }
+}
+
+.burger-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.burger-btn:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.burger-btn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #333;
+  transition: all 0.3s ease;
+}
+
+.burger-btn:hover span {
+  background: #3b82f6;
 }
 
 .nav-links a {
@@ -77,50 +266,60 @@ export default {
   box-shadow: 0 0 8px #3b82f6;
 }
 
-.nav-buttons {
+.nav-left {
   display: flex;
-  gap: 1.2rem;
+  align-items: center;
+  gap: 20px;
 }
 
-.btn {
-  padding: 0.7rem 1.4rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
+.nav-right {
+  margin-right: 20px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style spécifique pour le bouton déconnexion */
+.nav-links a[href="/login"] {
+  color: #333;
+}
+
+.nav-links a[href="/login"]:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+}
+
+.nav-links a[href="/login"]::after {
+  background: #ef4444;
+}
+
+.nav-links a[href="/login"]:hover::after {
+  width: 80%;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
   transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
-.btn-signup {
-  background: transparent;
-  border: 2px solid #3b82f6;
-  color: #3b82f6;
-}
-
-.btn-signup:hover {
-  background: #3b82f6;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
-
-.btn-login {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  border: none;
-  color: white;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-}
-
-.btn-login:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-}
-
-.btn:active {
-  transform: translateY(0);
-  box-shadow: none;
+.overlay-active {
+  opacity: 1;
+  visibility: visible;
 }
 </style>
