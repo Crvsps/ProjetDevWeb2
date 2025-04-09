@@ -5,8 +5,7 @@
       class="overlay" 
       :class="{ 'overlay-active': isSidebarOpen }"
       @click="toggleSidebar"
-    ></div>
-    
+    ></div> 
     <!-- Sidebar -->
     <div class="sidebar" :class="{ 'sidebar-active': isSidebarOpen }">
       <div class="sidebar-header">

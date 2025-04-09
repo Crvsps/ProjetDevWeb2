@@ -46,19 +46,25 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'DashboardPage',
-  data() {
+import { defineComponent } from 'vue'
+
+interface DashboardData {
+  isSidebarOpen: boolean
+}
+
+export default defineComponent({
+  name: 'DashboardDataData',
+  data(): DashboardData {
     return {
       isSidebarOpen: false
     }
   },
   methods: {
-    toggleSidebar() {
+    toggleSidebar(): void {
       this.isSidebarOpen = !this.isSidebarOpen
     }
   }
-}
+})
 </script>
 
 <style scoped>
