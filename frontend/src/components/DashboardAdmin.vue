@@ -13,11 +13,11 @@
         <button class="close-btn" @click="toggleSidebar">×</button>
       </div>
       <ul class="sidebar-menu">
-        <li><router-link to="/dashboard">Tableau de bord</router-link></li>
+        <li><router-link to="/dashboard-admin">Tableau de bord</router-link></li>
         <li><router-link to="/settings">Paramètres</router-link></li>
         <li><router-link to="/help">Aide</router-link></li>
 				<li><router-link to="/users">Utilisateurs</router-link></li>
-				<li><router-link to="/objects">Objets</router-link></li>
+				<li><router-link to="/objects-admin">Objets</router-link></li>
       </ul>
     </div>
 
@@ -49,7 +49,7 @@
 
 <script lang="ts">
 export default {
-  name: 'DashboardPage',
+  name: 'DashboardAdmin',
   data() {
     return {
       isSidebarOpen: false
