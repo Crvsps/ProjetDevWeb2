@@ -160,22 +160,44 @@ export default {
   padding: 1rem;
 }
 
-.sidebar-menu li {
-  margin-bottom: 1rem;
-}
-
 .sidebar-menu a {
-  color: #333;
   text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
   display: block;
-  padding: 0.5rem;
-  border-radius: 4px;
 }
 
 .sidebar-menu a:hover {
-  background-color: #f5f5f5;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
 }
 
+.sidebar-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #3b82f6;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.sidebar-menu a:hover::after {
+  width: 80%;
+  box-shadow: 0 0 8px #3b82f6;
+}
+
+.sidebar-menu li {
+  margin-bottom: 1rem;
+}
 .content {
   padding-top: 60px;
   transition: margin-left 0.3s ease;
