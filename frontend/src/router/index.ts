@@ -5,6 +5,7 @@ import LoginPage from '../components/LoginPage.vue'
 import ProfilPage from '../components/Profil.vue'
 import DashboardPage from '../components/Dashboard.vue'
 import DashboardAdmin from '../components/DashboardAdmin.vue'
+import RechercheObj from '../components/RechercheObj.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -38,7 +39,12 @@ const router = createRouter({
       path: '/dashboardAdmin',
       name: 'dashboardAdmin',
       component: DashboardAdmin
-    }
+    },
+    {
+      path: '/help',
+      name: 'help',
+      component: RechercheObj
+    },
   ]
 })
 

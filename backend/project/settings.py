@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ALLOW_ALL_ORIGINS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # TokenAuthentication
     'students',
+    'objets',
     'corsheaders',
 ]
 
