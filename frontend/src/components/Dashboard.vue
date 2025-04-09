@@ -13,6 +13,13 @@
   </nav>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'DashboardPage'
+}
+</script>
+
+
 <style scoped>
 .navbar {
   position: fixed;

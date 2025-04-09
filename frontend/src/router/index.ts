@@ -3,6 +3,7 @@ import CreateAccount from '../components/CreateAccount.vue'
 import HomePage from '../components/HomePage.vue'
 import LoginPage from '../components/LoginPage.vue'
 import ProfilPage from '../components/Profil.vue'
+import DashboardPage from '../components/Dashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/create-account',
       name: 'create-account',
       component: CreateAccount
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardPage
     }
   ]
 })
