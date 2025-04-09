@@ -1,15 +1,38 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router' //Backend
 
 const username = ref('')
 const password = ref('')
+const router = useRouter() //Backend
 
-const handleSubmit = () => {
-  // TODO: Add form submission logic
-  console.log('Form submitted')
+
+//Backend
+const handleSubmit = async () => {
+  const response = await fetch('http://127.0.0.1:8000/auth/login/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: username.value,
+      password: password.value
+    })
+  })
+
+  const data = await response.json()
+
+  if (response.ok) {
+    localStorage.setItem('token', data.token)
+    router.push('/dashboard') // ou la route de ton choix
+  } else {
+    alert(data.non_field_errors?.[0] || 'Identifiants invalides')
+  }
 }
+//Backend
 
 </script>
+
 <!-- 
 <template>
   <div class="create-account">
