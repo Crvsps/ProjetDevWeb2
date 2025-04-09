@@ -27,8 +27,11 @@
   </div>
 </template>
 
-<script>
-
+// Renommer Profil.vue en ProfilPage.vue
+<script lang="ts">
+export default {
+  name: 'ProfilPage'
+}
 </script>
 
 <style>
