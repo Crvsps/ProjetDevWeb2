@@ -14,7 +14,7 @@
           <input type="text" v-model="updatedUser.name" id="name" placeholder="Nom"/>
         </div>
 		
-	<div class="form-group">
+		<div class="form-group">
           <label for="FName">Prénom</label>
           <input type="text" v-model="updatedUser.fName" id="fName" placeholder="Prénom"/>
         </div>
@@ -49,13 +49,13 @@ export default {
     return {
       user: {
         name: '',
-	fName: '',
+		fName: '',
         email: '',
         photo: ''
       },
       updatedUser: {
         name: newName,
-	fName : newFName,
+		fName : newFName,
         email: newEmail,
         photo: newPhoto
       }
