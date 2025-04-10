@@ -2,7 +2,16 @@ from rest_framework import serializers
 
 from .models import Category, Objet
 
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
+
 class ObjetSerializer(serializers.ModelSerializer):
+    
+    category = CategorySerializer(read_only=True)
+    
     class Meta:
         model = Objet
         fields = (
@@ -12,5 +21,7 @@ class ObjetSerializer(serializers.ModelSerializer):
             "description",
             "status",
             "get_image",
-            "get_thumbnail"
+            "get_thumbnail",
+            "category",
+            "date_added"
         )
