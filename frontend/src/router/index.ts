@@ -6,6 +6,7 @@ import ProfilPage from '../components/ProfilPage.vue'
 import DashboardPage from '../components/Dashboard.vue'
 import DashboardAdmin from '../components/DashboardAdmin.vue'
 import UserAdmin from '../components/UserAdmin.vue'
+import RechercheObj from '../components/RechercheObj.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/user-admin',
       name: 'user-admin',
       component: UserAdmin
+    },
+  {
+      path: '/recherche-obj',
+      name: 'recherche-obj',
+      component: RechercheObj
     },
   ]
 })

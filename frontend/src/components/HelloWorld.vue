@@ -8,7 +8,7 @@ defineProps<{
   <nav class="navbar">
     <ul class="nav-links">
       <li><router-link to="/">Accueil</router-link></li>
-      <li><a href="#services">Services</a></li>
+      <li><router-link to="/recherche-obj" class="btn">Services</router-link></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
 
