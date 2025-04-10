@@ -41,8 +41,8 @@ const router = createRouter({
       component: DashboardAdmin
     },
     {
-      path: '/help',
-      name: 'help',
+      path: '/searchObjet',
+      name: 'searchObjet',
       component: RechercheObj
     },
   ]
