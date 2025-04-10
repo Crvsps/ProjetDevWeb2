@@ -16,7 +16,9 @@
         <li><router-link to="/user-admin">Gestion Utilisateurs</router-link></li>
         <li><router-link to="/settings">Paramètres</router-link></li>
         <li><router-link to="/help">Aide</router-link></li>
-				<li><router-link to="/objects">Objets</router-link></li>
+		<li><router-link to="/objects-admin">Objets</router-link></li>
+		<li><router-link to="/security-admin">Sécurité</router-link></li>
+		<li><router-link to="/personalization-admin">Personnalisation</router-link></li>
       </ul>
     </div>
 
