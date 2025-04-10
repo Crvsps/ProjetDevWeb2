@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import CreateAccount from '../components/CreateAccount.vue'
 import HomePage from '../components/HomePage.vue'
 import LoginPage from '../components/LoginPage.vue'
-import ProfilPage from '../components/Profil.vue'
+import ProfilPage from '../components/ProfilPage.vue'
 import DashboardPage from '../components/Dashboard.vue'
 import DashboardAdmin from '../components/DashboardAdmin.vue'
-import RechercheObj from '../components/RechercheObj.vue'
+import RechercheObj from '@/components/RechercheObj.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -22,7 +22,7 @@ const router = createRouter({
     },
     {
       path: '/profil',
-      name: 'profil',
+      name: 'profil-page',
       component: ProfilPage
     },
     {
