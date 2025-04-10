@@ -7,6 +7,9 @@ import DashboardPage from '../components/Dashboard.vue'
 import DashboardAdmin from '../components/DashboardAdmin.vue'
 import UserAdmin from '../components/UserAdmin.vue'
 import RechercheObj from '../components/RechercheObj.vue'
+import DashboardAdvanced from '../components/DashboardAdvanced.vue'
+import ObjectsAdvanced from '../components/ObjectsAdvanced.vue'
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -51,6 +54,16 @@ const router = createRouter({
       name: 'recherche-obj',
       component: RechercheObj
     },
+	{
+      path: '/dashboard-advanced',
+      name: 'dashboard-advanced',
+      component: DashboardAdvanced
+    },
+	{
+      path: '/objects-advanced',
+      name: 'objects-advanced',
+      component: ObjectsAdvanced
+    }
   ]
 })
 
