@@ -19,6 +19,7 @@
 		<li><router-link to="/objects-admin">Objets</router-link></li>
 		<li><router-link to="/security-admin">Sécurité</router-link></li>
 		<li><router-link to="/personalization-admin">Personnalisation</router-link></li>
+		<li><router-link to="/reports-admin">Rapports</router-link></li>
       </ul>
     </div>
 
