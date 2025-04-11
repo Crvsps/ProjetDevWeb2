@@ -1,7 +1,23 @@
 <script setup lang="ts">
-defineProps<{
-  msg: string
-}>()
+import { ref } from 'vue'
+import { useAuth } from '../store/useAuth'
+import { useRouter } from 'vue-router'
+
+const auth = useAuth()
+const showLogoutConfirm = ref(false) // Modal pour confirmer la déconnexion
+const router = useRouter()
+
+// Fonction de confirmation de déconnexion
+function confirmLogout() {
+  showLogoutConfirm.value = false
+  auth.logoutUser() // Appeler la fonction pour déconnecter l'utilisateur
+  router.push('/login') // Rediriger l'utilisateur vers la page de connexion
+}
+
+// Fonction pour annuler la déconnexion
+function cancelLogout() {
+  showLogoutConfirm.value = false
+}
 </script>
 
 <template>
@@ -22,7 +38,7 @@ defineProps<{
             <div class="control">
               <button class="button is-success">
                 <span class="icon">
-                <i class="fas fa-search"></i>
+                  <i class="fas fa-search"></i>
                 </span>
               </button>
             </div>
@@ -31,14 +47,80 @@ defineProps<{
       </div>
     </div>
 
+    <!-- Boutons de connexion/déconnexion -->
     <div class="nav-buttons">
-      <router-link to="/create-account" class="btn btn-signup">Créer un compte</router-link>
-      <router-link to="/login" class="btn btn-login">Se connecter</router-link>
+      <!-- Si l'utilisateur n'est pas authentifié, on affiche les boutons de connexion et d'inscription -->
+      <template v-if="!auth.isAuthenticated">
+        <router-link to="/create-account" class="btn btn-signup">Créer un compte</router-link>
+        <router-link to="/login" class="btn btn-login">Se connecter</router-link>
+      </template>
+
+      <!-- Si l'utilisateur est authentifié, on affiche le bouton de déconnexion -->
+      <template v-else>
+        <a href="#" @click.prevent="showLogoutConfirm = true">Se déconnecter</a>
+      </template>
     </div>
   </nav>
+
+  <!-- Modal de confirmation de déconnexion -->
+  <div v-if="showLogoutConfirm" class="logout-modal-overlay">
+    <div class="logout-modal">
+      <h3>Confirmation</h3>
+      <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+      <div class="logout-modal-buttons">
+        <button class="cancel-btn" @click="cancelLogout">Annuler</button>
+        <button class="confirm-btn" @click="confirmLogout">Confirmer</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style-type: none;
+  gap: 15px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.logout-modal-buttons button {
+  margin: 5px;
+}
+
+
+
+
+
+
 .navbar {
   position: fixed;
   top: 0;
@@ -265,5 +347,83 @@ body {
   body {
     padding-top: 150px;
   }
+}
+.logout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+}
+
+.logout-modal {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logout-modal h3 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+}
+
+.logout-modal p {
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.logout-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.cancel-btn, .confirm-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #d0d0d0;
+}
+
+.confirm-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background-color: #dc2626;
 }
 </style>

@@ -1,28 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useAuth } from '@/store/useAuth'
-import { useRouter } from 'vue-router'
-
-const username = ref('')
-const password = ref('')
-const router = useRouter()
-
-const { loginUser } = useAuth()
-
-const handleSubmit = async () => {
-  try {
-    // Appel de la méthode loginUser du store
-    await loginUser(username.value, password.value)
-    router.push('/dashboard') // Redirection vers la page du dashboard
-  } catch (error) {
-    console.error('Erreur lors de la connexion:', error)
-    alert('Erreur de connexion, veuillez vérifier vos identifiants')
-  }
-
-
-}
-</script>
-
 <!-- 
 <template>
   <div class="create-account">
@@ -133,6 +108,28 @@ input:focus {
 }
 </style> -->
 
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useAuth } from '@/store/useAuth'
+import { useRouter } from 'vue-router'
+
+const username = ref('')
+const password = ref('')
+const router = useRouter()
+
+const { loginUser } = useAuth()
+
+const handleSubmit = async () => {
+  try {
+    await loginUser(username.value, password.value)
+    router.push('/dashboard')  // Redirection vers le dashboard après connexion réussie
+  } catch (error) {
+    console.error('Erreur lors de la connexion:', error)
+    alert('Erreur de connexion, veuillez vérifier vos identifiants')
+  }
+}
+</script>
+
 <template>
   <div class="login-container">
     <div class="login">
@@ -166,6 +163,7 @@ input:focus {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .login-container {

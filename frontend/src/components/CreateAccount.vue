@@ -3,37 +3,29 @@ import { ref } from 'vue'
 import { useAuth } from '@/store/useAuth'
 import { useRouter } from 'vue-router'
 
-// Initialisation des variables
 const username = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const router = useRouter()
 
-// Importation des méthodes du store useAuth
 const { signup } = useAuth()
 
-// Fonction pour gérer la soumission du formulaire d'inscription
 const handleSubmit = async () => {
-  // Vérification que les mots de passe correspondent
   if (password.value !== confirmPassword.value) {
     alert("Les mots de passe ne correspondent pas.")
     return
   }
 
   try {
-    // Appel à la méthode signup du store
     await signup(username.value, email.value, password.value)
-    // Redirection vers la page du dashboard si l'inscription est réussie
-    router.push('/dashboard')
+    router.push('/dashboard')  // Redirection vers le dashboard après l'inscription réussie
   } catch (error) {
     console.error('Erreur lors de la création du compte:', error)
     alert('Erreur lors de la création du compte, essayez un autre nom d\'utilisateur')
   }
 }
 </script>
-
-
 
 <template>
   <div class="create-account">
