@@ -7,7 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('students.urls')),
     path('auth/',include('auth.urls')),
-    path('objets/', include('objets.urls')),
 
     path('api/v1/', include('djoser.urls')),
     path('api/v1/', include('djoser.urls.authtoken')),

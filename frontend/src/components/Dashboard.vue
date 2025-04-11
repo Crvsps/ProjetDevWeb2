@@ -21,47 +21,72 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-    <div class="nav-left">
-      <button class="burger-btn" @click="toggleSidebar">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links">
-        <router-link to="/profil">Profil</router-link>
+      <div class="nav-left">
+        <button class="burger-btn" @click="toggleSidebar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links">
+          <router-link to="/profil">Profil</router-link>
+        </div>
       </div>
-    </div>
-    <div class="nav-right">
-      <div class="nav-links">
-        <router-link to="/login">Se déconnecter</router-link>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#" @click.prevent="showLogoutConfirm = true">Se déconnecter</a>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
     <!-- Content -->
     <div class="content" :class="{ 'content-shifted': isSidebarOpen }">
       <!-- Your dashboard content here -->
+    </div>
+
+    <!-- Modal de confirmation de déconnexion -->
+    <div v-if="showLogoutConfirm" class="logout-modal-overlay">
+      <div class="logout-modal">
+        <h3>Confirmation</h3>
+        <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+        <div class="logout-modal-buttons">
+          <button class="cancel-btn" @click="showLogoutConfirm = false">Annuler</button>
+          <button class="confirm-btn" @click="confirmLogout">Confirmer</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
-interface DashboardData {
-  isSidebarOpen: boolean
-}
+import { useAuth } from '@/store/useAuth'
 
 export default defineComponent({
-  name: 'DashboardDataData',
-  data(): DashboardData {
+  name: 'DashboardData',
+  setup() {
+    // Initialiser le store d'authentification au niveau du setup
+    const auth = useAuth()
+    
     return {
-      isSidebarOpen: false
+      auth // Rendre le store disponible dans le template et les méthodes
+    }
+  },
+  data() {
+    return {
+      isSidebarOpen: false,
+      showLogoutConfirm: false
     }
   },
   methods: {
     toggleSidebar(): void {
       this.isSidebarOpen = !this.isSidebarOpen
+    },
+    confirmLogout() {
+      // Fermer le modal
+      this.showLogoutConfirm = false
+      
+      // Utiliser l'instance du store déjà initialisée
+      this.auth.logoutUser()
     }
   }
 })
@@ -313,25 +338,24 @@ export default defineComponent({
 }
 
 /* Style spécifique pour le bouton déconnexion */
-.nav-links a[href="/login"] {
+.nav-links a[href="#"] {
   color: #333;
 }
 
-.nav-links a[href="/login"]:hover {
+.nav-links a[href="#"]:hover {
   color: #ef4444;
   background: rgba(239, 68, 68, 0.1);
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
 }
 
-.nav-links a[href="/login"]::after {
+.nav-links a[href="#"]::after {
   background: #ef4444;
 }
 
-.nav-links a[href="/login"]:hover::after {
+.nav-links a[href="#"]:hover::after {
   width: 80%;
   box-shadow: 0 0 8px #ef4444;
 }
-
 
 .overlay {
   position: fixed;
@@ -349,5 +373,85 @@ export default defineComponent({
 .overlay-active {
   opacity: 1;
   visibility: visible;
+}
+
+/* Styles pour le modal de confirmation de déconnexion */
+.logout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+}
+
+.logout-modal {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logout-modal h3 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+}
+
+.logout-modal p {
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.logout-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.cancel-btn, .confirm-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #d0d0d0;
+}
+
+.confirm-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background-color: #dc2626;
 }
 </style>
