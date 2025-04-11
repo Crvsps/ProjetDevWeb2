@@ -18,6 +18,8 @@ const handleSubmit = async () => {
     console.error('Erreur lors de la connexion:', error)
     alert('Erreur de connexion, veuillez vérifier vos identifiants')
   }
+
+
 }
 </script>
 

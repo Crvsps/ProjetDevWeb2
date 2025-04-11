@@ -9,6 +9,8 @@ import UserAdmin from '../components/UserAdmin.vue'
 import RechercheObj from '../components/RechercheObj.vue'
 import DashboardAdvanced from '../components/DashboardAdvanced.vue'
 import ObjectsAdvanced from '../components/ObjectsAdvanced.vue'
+import DetailObjet from '../components/DetailObjet.vue'
+import PageRecherche from '../components/PageRecherche.vue'
 
 
 const router = createRouter({
@@ -18,6 +20,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: PageRecherche
     },
     {
       path: '/login',
@@ -50,8 +57,8 @@ const router = createRouter({
       component: UserAdmin
     },
   {
-      path: '/recherche-obj',
-      name: 'recherche-obj',
+      path: '/recherche-objet',
+      name: 'recherche-objet',
       component: RechercheObj
     },
 	{
@@ -63,7 +70,12 @@ const router = createRouter({
       path: '/objects-advanced',
       name: 'objects-advanced',
       component: ObjectsAdvanced
-    }
+    },
+    {
+      path: '/:category_slug/:object_slug',
+      name: 'detail',
+      component: DetailObjet
+    },
   ]
 })
 
