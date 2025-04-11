@@ -11,7 +11,8 @@
           <h3 class ="is-size-4">{{objet.name}}</h3>
           <p class ="is-size-6-has-text-grey">{{objet.status }}</p>
 
-          <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4"> Détails</router-link>
+          <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4">Détails </router-link>
+          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class=button is-warnig mt-2 ml-2>Modifier</router-link>
         </div>
      </div>
   </div>

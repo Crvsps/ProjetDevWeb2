@@ -11,6 +11,7 @@ import DashboardAdvanced from '../components/DashboardAdvanced.vue'
 import ObjectsAdvanced from '../components/ObjectsAdvanced.vue'
 import DetailObjet from '../components/DetailObjet.vue'
 import PageRecherche from '../components/PageRecherche.vue'
+import GestionObjet from '@/components/GestionObjet.vue'
 
 
 const router = createRouter({
@@ -75,6 +76,11 @@ const router = createRouter({
       path: '/:category_slug/:object_slug',
       name: 'detail',
       component: DetailObjet
+    },
+    {
+      path: '/gestion/:category_slug/:object_slug',
+      name: 'gestion',
+      component: GestionObjet
     },
   ]
 })

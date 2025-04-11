@@ -1,6 +1,6 @@
 <template>
     <div class ="page-product">
-        <div class = columsn is-multiple>
+        <div class = column is-multiple>
             <div class ='column is-9'>
                 <figure class ="image mb-6">
                     <img v-bind:src="objet.get_image">
@@ -42,7 +42,6 @@ export default {
                 .then(response => {
                     this.objet = response.data
 
-                    document.title = this.object.name + '| CYber School'
                 })
                 .catch(error => {
                     console.log(error)
