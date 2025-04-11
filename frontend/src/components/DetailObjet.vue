@@ -40,8 +40,9 @@ export default {
             axios
                 .get(`/api/v1/objets/${category_slug}/${object_slug}`)
                 .then(response => {
-                    console.log(response, response.data)
                     this.objet = response.data
+
+                    document.title = this.object.name + '| CYber School'
                 })
                 .catch(error => {
                     console.log(error)
