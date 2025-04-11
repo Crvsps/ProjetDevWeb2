@@ -1,38 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router' //Backend
+import { useAuth } from '@/store/useAuth'
+import { useRouter } from 'vue-router'
 
 const username = ref('')
 const password = ref('')
-const router = useRouter() //Backend
+const router = useRouter()
 
+const { loginUser } = useAuth()
 
-//Backend
 const handleSubmit = async () => {
-  const response = await fetch('http://127.0.0.1:8000/auth/login/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      username: username.value,
-      password: password.value
-    })
-  })
-
-  const data = await response.json()
-
-  if (response.ok) {
-    localStorage.setItem('token', data.token)
-    router.push('/dashboard') // ou la route de ton choix
-  } else {
-    alert(data.non_field_errors?.[0] || 'Identifiants invalides')
+  try {
+    // Appel de la méthode loginUser du store
+    await loginUser(username.value, password.value)
+    router.push('/dashboard') // Redirection vers la page du dashboard
+  } catch (error) {
+    console.error('Erreur lors de la connexion:', error)
+    alert('Erreur de connexion, veuillez vérifier vos identifiants')
   }
 
 
 }
-//Backend
-
 </script>
 
 <!-- 

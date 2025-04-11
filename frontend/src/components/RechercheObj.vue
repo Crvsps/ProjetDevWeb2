@@ -18,35 +18,35 @@
   </div>
 </template>
   
-  <script>
-  import axios from 'axios'
+<script>
+import axios from 'axios'
 
-  export default {
-    data() {
-      return {
-        latestObjets: []
-      }
-    },
-    components: {
-    },
-    mounted() {
-      this.getLastestProducts()
-    },
-    methods: {
-      getLastestProducts(){
-        axios
-          .get('/api/v1/latest-objets/')
-          .then(response => {
-            this.latestObjets = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      }
+export default {
+  data() {
+    return {
+      latestObjets: []
+    }
+  },
+  components: {
+  },
+  mounted() {
+    this.getLastestProducts()
+  },
+  methods: {
+    getLastestProducts(){
+      axios
+        .get('/api/v1/latest-objets/')
+        .then(response => {
+          this.latestObjets = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
+}
 
-  </script>
+</script>
   
   <style scoped>
   /* Styles pour la page de recherche */
