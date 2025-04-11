@@ -207,6 +207,7 @@ label {
 }
 
 input {
+  color: black;
   width: 100%;
   padding: 0.75rem;
   border: 2px solid #e2e8f0;

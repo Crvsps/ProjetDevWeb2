@@ -6,7 +6,7 @@ from .models import Category, Objet
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'slug']
 
 class ObjetSerializer(serializers.ModelSerializer):
     
@@ -17,6 +17,7 @@ class ObjetSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
+            "slug",
             "get_absolute_url",
             "description",
             "status",
