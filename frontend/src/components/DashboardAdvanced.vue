@@ -19,7 +19,7 @@
 				<li><router-link to="/objects-advanced">Objets</router-link></li>
 				<li><router-link to="/services">Services</router-link></li>
 				<li><router-link to="/resources">Ressources</router-link></li>
-				<li><router-link to="/static-reports">Rapports statiques</router-link></li>
+				<li><router-link to="/statistic-reports">Rapports statistiques</router-link></li>
       </ul>
     </div>
 
