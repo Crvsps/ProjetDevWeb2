@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-hm^h+ul@y^*sdsn%#ig6&)aa5kgej6b*m#m&&6fvyg7g3fdwrr
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 CSRF_COOKIE_SECURE = False
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8080",  # ✅ Vue frontend

@@ -48,12 +48,12 @@ export default {
   <nav class="navbar">
     <ul class="nav-links">
       <li><router-link to="/">Accueil</router-link></li>
-      <li><router-link to="/recherche-objet">Objets</router-link></li>
+      <li v-if="authStore.isAuthenticated"><router-link to="/recherche-objet">Objets</router-link></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
 
     <div class="navbar-start">
-      <div class="navbar-item">
+      <div v-if="authStore.isAuthenticated" class="navbar-item">
         <form method="get" action="/search">
           <div class="field has-addons">
             <div class="control">

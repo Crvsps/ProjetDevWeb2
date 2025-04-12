@@ -3,7 +3,7 @@ import type { Router } from 'vue-router'
 
 interface User {
   id: number
-  email: string
+  username: string
   // Ajoute ici d'autres propriétés selon ton backend
 }
 
@@ -60,32 +60,34 @@ export const useAuthStore = defineStore('auth', {
       })
     },
 
-    async login(email: string, password: string, router: Router | null = null): Promise<void> {
-      const response = await fetch('http://localhost:8000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCSRFToken(),
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include',
-      })
-
-      const data: LoginResponse = await response.json()
-
-      if (data.success) {
-        this.isAuthenticated = true
-        // Facultatif : this.user = data.user
-        this.saveState()
-        if (router) {
-          await router.push({ name: 'home' })
+    async login(username: string, password: string, router: Router | null = null): Promise<void> {
+        await this.setCsrfToken()  // Ajout de l'appel ici
+      
+        const response = await fetch('http://localhost:8000/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken(),
+          },
+          body: JSON.stringify({ username, password }),
+          credentials: 'include',
+        })
+      
+        const data: LoginResponse = await response.json()
+      
+        if (data.success) {
+          this.isAuthenticated = true
+          // Facultatif : this.user = data.user
+          this.saveState()
+          if (router) {
+            await router.push({ name: 'home' })
+          }
+        } else {
+          this.user = null
+          this.isAuthenticated = false
+          this.saveState()
         }
-      } else {
-        this.user = null
-        this.isAuthenticated = false
-        this.saveState()
-      }
-    },
+      },
 
     async logout(router: Router | null = null): Promise<void> {
       try {
@@ -112,31 +114,34 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async fetchUser(): Promise<void> {
-      try {
-        const response = await fetch('http://localhost:8000/auth/user', {
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCSRFToken(),
-          },
-        })
-
-        if (response.ok) {
-          const data: User = await response.json()
-          this.user = data
-          this.isAuthenticated = true
-        } else {
+        try {
+          const response = await fetch('http://localhost:8000/auth/user', {
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCSRFToken(),
+            },
+          })
+      
+          if (response.ok) {
+            const data: User = await response.json()
+            this.user = data
+            this.isAuthenticated = true
+          } else {
+            this.user = null
+            this.isAuthenticated = false
+            // Rediriger vers la page de login si le CSRF est invalidé
+            throw new Error('Unauthorized - CSRF token invalid or missing')
+          }
+        } catch (error) {
+          console.error('Failed to fetch user', error)
           this.user = null
           this.isAuthenticated = false
         }
-      } catch (error) {
-        console.error('Failed to fetch user', error)
-        this.user = null
-        this.isAuthenticated = false
+      
+        this.saveState()
       }
-
-      this.saveState()
-    },
+      ,
 
     saveState(): void {
       localStorage.setItem(

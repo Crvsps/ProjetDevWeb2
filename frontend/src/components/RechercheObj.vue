@@ -35,7 +35,7 @@ export default {
   methods: {
     getLastestProducts(){
       axios
-        .get('/api/v1/latest-objets/')
+        .get('latest-objets/')
         .then(response => {
           this.latestObjets = response.data
         })
