@@ -29,7 +29,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CSRF_COOKIE_SECURE = False
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",  # ✅ Vue frontend
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",  # Ajouter l'origine de ton frontend
+]
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -67,6 +75,7 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
 }
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
