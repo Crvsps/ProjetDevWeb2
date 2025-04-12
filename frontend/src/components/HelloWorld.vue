@@ -9,7 +9,8 @@ defineProps<{
 <ul class="nav-links">
   <li><router-link to="/">Accueil</router-link></li>
   <li><router-link to="/recherche-objet">Objets</router-link></li>
-  <li><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
+  <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
+  <!-- <li><router-link to="/ajouter-objet">Ajouter un objet</router-link></li> -->
 </ul>
 
 <div class="navbar-start">
@@ -32,11 +33,45 @@ defineProps<{
 </div>
 
 <div class="nav-buttons">
-  <router-link to="/create-account" class="btn btn-signup">Créer un compte</router-link>
-  <router-link to="/login" class="btn btn-login">Se connecter</router-link>
-</div>
-</nav>
+      <template v-if="!isLoggedIn">
+        <router-link to="/create-account" class="btn btn-signup">Créer un compte</router-link>
+        <router-link to="/login" class="btn btn-login">Se connecter</router-link>
+      </template>
+      <button v-else @click="logout" class="btn btn-login">Se déconnecter</button>
+    </div>
+  </nav>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      isLoggedIn: false
+    }
+  },
+  created() {
+    // Vérifier si le token existe dans le localStorage
+    this.isLoggedIn = !!localStorage.getItem('token')
+    
+    // Écouter les changements d'authentification
+    window.addEventListener('storage', this.checkLoginStatus)
+  },
+  beforeUnmount() {
+    window.removeEventListener('storage', this.checkLoginStatus)
+  },
+  methods: {
+    checkLoginStatus() {
+      this.isLoggedIn = !!localStorage.getItem('token')
+    },
+    logout() {
+      localStorage.removeItem('token')
+      this.isLoggedIn = false
+      this.$router.push('/login')
+    }
+  }
+}
+</script>
 
 <style scoped>
 .navbar {
