@@ -8,12 +8,12 @@ defineProps<{
   <nav class="navbar">
     <ul class="nav-links">
       <li><router-link to="/">Accueil</router-link></li>
-      <li><router-link to="/recherche-objet">Objets</router-link></li>
+      <li v-if="isLoggedIn"><router-link to="/recherche-objet">Objets</router-link></li>
       <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
     </ul>
 
     <div class="navbar-start">
-      <div class="navbar-item">
+      <div v-if="isLoggedIn" class="navbar-item">
         <form method="get" action="/search">
           <div class="field has-addons">
             <div class="control">
