@@ -39,8 +39,8 @@ const router = createRouter({
       component: ProfilPage
     },
     {
-      path: '/create-account',
-      name: 'create-account',
+      path: '/register',
+      name: 'register',
       component: CreateAccount
     },
     {

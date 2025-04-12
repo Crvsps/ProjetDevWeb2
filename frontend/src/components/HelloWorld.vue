@@ -6,36 +6,35 @@ defineProps<{
 
 <template>
   <nav class="navbar">
-<ul class="nav-links">
-  <li><router-link to="/">Accueil</router-link></li>
-  <li><router-link to="/recherche-objet">Objets</router-link></li>
-  <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
-  <!-- <li><router-link to="/ajouter-objet">Ajouter un objet</router-link></li> -->
-</ul>
+    <ul class="nav-links">
+      <li><router-link to="/">Accueil</router-link></li>
+      <li><router-link to="/recherche-objet">Objets</router-link></li>
+      <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
+    </ul>
 
-<div class="navbar-start">
-  <div class="navbar-item">
-    <form method="get" action="/search">
-      <div class="field has-addons">
-        <div class="control">
-          <input type="text" class="input" placeholder="Vous cherchez un objet?" name="query">
-        </div>
-        <div class="control">
-          <button class="button is-success">
-            <span class="icon">
-            <i class="fas fa-search"></i>
-            </span>
-          </button>
-        </div>
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <form method="get" action="/search">
+          <div class="field has-addons">
+            <div class="control">
+              <input type="text" class="input" placeholder="Vous cherchez un objet?" name="query">
+            </div>
+            <div class="control">
+              <button class="button is-success">
+                <span class="icon">
+                <i class="fas fa-search"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
 
-<div class="nav-buttons">
+    <div class="nav-buttons">
       <template v-if="!isLoggedIn">
-        <router-link to="/create-account" class="btn btn-signup">Créer un compte</router-link>
-        <router-link to="/login" class="btn btn-login">Se connecter</router-link>
+        <router-link :to="{name: 'register'}" class="btn btn-signup">Créer un compte</router-link>
+        <router-link :to="{name: 'login'}" class="btn btn-login">Se connecter</router-link>
       </template>
       <button v-else @click="logout" class="btn btn-login">Se déconnecter</button>
     </div>
