@@ -24,5 +24,9 @@ class ObjetSerializer(serializers.ModelSerializer):
             "get_image",
             "get_thumbnail",
             "category",
-            "date_added"
+            "date_added",
+            "marque",
+            "consommation",
+            "localisation",
+            "derniere_maintenance",
         )

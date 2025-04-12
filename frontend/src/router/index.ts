@@ -12,6 +12,7 @@ import ObjectsAdvanced from '../components/ObjectsAdvanced.vue'
 import DetailObjet from '../components/DetailObjet.vue'
 import PageRecherche from '../components/PageRecherche.vue'
 import GestionObjet from '@/components/GestionObjet.vue'
+import AjouterObjet from '@/components/AjouterObjet.vue'
 
 
 const router = createRouter({
@@ -38,8 +39,8 @@ const router = createRouter({
       component: ProfilPage
     },
     {
-      path: '/create-account',
-      name: 'create-account',
+      path: '/register',
+      name: 'register',
       component: CreateAccount
     },
     {
@@ -62,6 +63,11 @@ const router = createRouter({
       name: 'recherche-objet',
       component: RechercheObj
     },
+    {
+      path: '/ajouter-objet',
+      name: 'ajouter-objet',
+      component: AjouterObjet
+    },
 	{
       path: '/dashboard-advanced',
       name: 'dashboard-advanced',
@@ -82,7 +88,19 @@ const router = createRouter({
       name: 'gestion',
       component: GestionObjet
     },
-  ]
-})
+  ]});
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/', '/login', '/register'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('token');
+
+  if (authRequired && !loggedIn) {
+    next('/login');
+  } else {
+    next();
+  }
+});
+
 
 export default router

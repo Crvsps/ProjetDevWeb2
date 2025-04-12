@@ -11,8 +11,12 @@
                 <div class = "column is-3">
                     <h2 class ="subtitle">Informations</h2>
                     <p><strong>Statut: </strong>{{ objet.status }}</p>
+                    <p><strong>Dernière maintenance: </strong>{{ formatDate(objet.derniere_maintenance) }}</p>
                     <p><strong>Ajouté le: </strong>{{ formatDate(objet.date_added) }}</p>
-                    <p><strong>Catégorie: </strong>{{ objet && objet.category ? objet.category.name : ''}}</p>
+                    <p><strong>Catégorie: </strong>{{ objet && objet.category ? objet.category.name : '' }}</p>
+                    <p><strong>Marque: </strong>{{ objet.marque }}</p>
+                    <p><strong>Localisation: </strong>{{ objet.localisation }}</p>
+                    <p><strong>Consommation: </strong>{{ objet.consommation }} Kwh</p>
                     <div class = "field has-addons mt-6">
                     </div>
                 </div>

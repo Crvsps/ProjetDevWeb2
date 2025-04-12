@@ -12,7 +12,8 @@
           <p class ="is-size-6-has-text-grey">{{objet.status }}</p>
 
           <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4">Détails </router-link>
-          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class=button is-warnig mt-2 ml-2>Modifier</router-link>
+          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class=button is-warning mt-2 ml-2>Modifier</router-link>
+          <button @click="deleteObjet(objet.category_slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
         </div>
      </div>
   </div>
@@ -29,27 +30,47 @@ export default {
   },
   components: {
   },
-  mounted() {
+  mounted() {  
+    console.log(localStorage.getItem('token'))
+      if (!localStorage.getItem('token')) {
+        this.$router.push('/login'); 
+      } else {
+        this.getLastestProducts(); 
+  
+}
+
     this.getLastestProducts()
   },
   methods: {
     getLastestProducts(){
       axios
-        .get('latest-objets/')
+        .get('/api/v1/latest-objets/')
         .then(response => {
           this.latestObjets = response.data
         })
         .catch(error => {
           console.log(error)
         })
+       },
+       deleteObjet(categorySlug, objectSlug) {
+      if (confirm('Êtes-vous sûr de vouloir supprimer cet objet ?')) {
+        axios
+          .delete(`/api/v1/objets/${categorySlug}/${objectSlug}/delete/`)
+          .then(response => {
+            this.latestObjets = this.latestObjets.filter(objet => objet.slug !== objectSlug)
+            alert('Objet supprimé avec succès')
+          })
+          .catch(error => {
+            console.log(error)
+            alert('Erreur lors de la suppression de l\'objet')
+          })
+      }
     }
   }
 }
-
 </script>
   
   <style scoped>
-  /* Styles pour la page de recherche */
   .search-container {
     padding: 2rem;
   }
