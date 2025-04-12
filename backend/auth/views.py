@@ -1,72 +1,63 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
-from django.contrib.auth.models import User
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+import json
 
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login, logout
+from .forms import CreateUserForm
 
-class CreateAccount(APIView):
+@ensure_csrf_cookie
+@require_http_methods(['GET'])
+def set_csrf_token(request):
     """
-    Crée un compte utilisateur et génère un token d'authentification.
+    We set the CSRF cookie on the frontend.
     """
-    permission_classes = [AllowAny]
+    return JsonResponse({'message': 'CSRF cookie set'})
 
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        email = request.data.get('email', '')  # Vous pouvez ajouter l'email si nécessaire
+@require_http_methods(['POST'])
+def login_view(request):
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        email = data['email']
+        password = data['password']
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {'success': False, 'message': 'Invalid JSON'}, status=400
+        )
 
-        # Vérifier si l'utilisateur existe déjà
-        if User.objects.filter(username=username).exists():
-            return Response({'error': 'Ce nom d’utilisateur existe déjà'}, status=400)
+    user = authenticate(request, username=email, password=password)
 
-        # Créer l'utilisateur
-        user = User.objects.create_user(username=username, password=password, email=email)
-        
-        # Générer un token pour l'utilisateur
-        token = Token.objects.create(user=user)
-        
-        return Response({'token': token.key}, status=201)
+    if user:
+        login(request, user)
+        return JsonResponse({'success': True})
+    return JsonResponse(
+        {'success': False, 'message': 'Invalid credentials'}, status=401
+    )
 
+def logout_view(request):
+    logout(request)
+    return JsonResponse({'message': 'Logged out'})
 
-class LoginPage(APIView):
-    """
-    Authentifie l'utilisateur avec son nom d'utilisateur et son mot de passe,
-    puis retourne un token d'authentification.
-    """
-    permission_classes = [AllowAny]
+@require_http_methods(['GET'])
+def user(request):
+    if request.user.is_authenticated:
+        return JsonResponse(
+            {'username': request.user.username, 'email': request.user.email}
+        )
+    return JsonResponse(
+        {'message': 'Not logged in'}, status=401
+    )
 
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
+@require_http_methods(['POST'])
+def register(request):
+    data = json.loads(request.body.decode('utf-8'))
+    form = CreateUserForm(data)
+    if form.is_valid():
+        form.save()
+        return JsonResponse({'success': 'User registered successfully'}, status=201)
+    else:
+        errors = form.errors.as_json()
+        return JsonResponse({'error': errors}, status=400)
 
-        # Authentifier l'utilisateur
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            # Créer un token pour l'utilisateur s'il n'existe pas déjà
-            token, created = Token.objects.get_or_create(user=user)
-
-            # Se connecter l'utilisateur (enregistrer la session)
-            login(request, user)
-
-            return Response({'token': token.key}, status=200)
-        else:
-            return Response({'error': 'Identifiants incorrects'}, status=400)
-
-
-class LogoutPage(APIView):
-    """
-    Déconnecte l'utilisateur en supprimant son token d'authentification.
-    """
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        # Supprimer le token de l'utilisateur
-        request.user.auth_token.delete()
-        return Response({"success": "Déconnecté avec succès"}, status=200)

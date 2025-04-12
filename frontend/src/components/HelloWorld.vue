@@ -1,24 +1,48 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useAuth } from '../store/useAuth'
+<script>
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '../store/auth'
 import { useRouter } from 'vue-router'
 
-const auth = useAuth()
-const showLogoutConfirm = ref(false) // Modal pour confirmer la déconnexion
-const router = useRouter()
+export default {
+  setup() {
+    const authStore = useAuthStore()
+    const router = useRouter()
 
-// Fonction de confirmation de déconnexion
-function confirmLogout() {
-  showLogoutConfirm.value = false
-  auth.logoutUser() // Appeler la fonction pour déconnecter l'utilisateur
-  router.push('/login') // Rediriger l'utilisateur vers la page de connexion
-}
+    const showLogoutModal = ref(false)
 
-// Fonction pour annuler la déconnexion
-function cancelLogout() {
-  showLogoutConfirm.value = false
+    const confirmLogout = async () => {
+      try {
+        await authStore.logout(router)
+        showLogoutModal.value = false
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    const cancelLogout = () => {
+      showLogoutModal.value = false
+    }
+
+    const openLogoutModal = () => {
+      showLogoutModal.value = true
+    }
+
+    onMounted(async () => {
+      await authStore.fetchUser()
+    })
+
+    return {
+      authStore,
+      router,
+      openLogoutModal,
+      confirmLogout,
+      cancelLogout,
+      showLogoutModal
+    }
+  }
 }
 </script>
+
 
 <template>
   <nav class="navbar">
@@ -47,33 +71,33 @@ function cancelLogout() {
       </div>
     </div>
 
-    <!-- Boutons de connexion/déconnexion -->
+    <!-- Connexion / Déconnexion -->
     <div class="nav-buttons">
-      <!-- Si l'utilisateur n'est pas authentifié, on affiche les boutons de connexion et d'inscription -->
-      <template v-if="!auth.isAuthenticated">
+      <template v-if="!authStore.isAuthenticated">
         <router-link to="/create-account" class="btn btn-signup">Créer un compte</router-link>
-        <router-link to="/login" class="btn btn-login">Se connecter</router-link>
+        <router-link to="/login">Se connecter</router-link>
       </template>
 
-      <!-- Si l'utilisateur est authentifié, on affiche le bouton de déconnexion -->
       <template v-else>
-        <a href="#" @click.prevent="showLogoutConfirm = true">Se déconnecter</a>
+        <button class="btn btn-logout" @click="openLogoutModal">Se déconnecter</button>
+
       </template>
     </div>
   </nav>
 
-  <!-- Modal de confirmation de déconnexion -->
-  <div v-if="showLogoutConfirm" class="logout-modal-overlay">
-    <div class="logout-modal">
-      <h3>Confirmation</h3>
-      <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
-      <div class="logout-modal-buttons">
-        <button class="cancel-btn" @click="cancelLogout">Annuler</button>
-        <button class="confirm-btn" @click="confirmLogout">Confirmer</button>
-      </div>
+  <!-- Modal de confirmation -->
+<div class="logout-modal-overlay" v-if="showLogoutModal">
+  <div class="logout-modal">
+    <h3>Confirmation</h3>
+    <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+    <div class="logout-modal-buttons">
+      <button class="cancel-btn" @click="cancelLogout">Annuler</button>
+      <button class="confirm-btn" @click="confirmLogout">Confirmer</button>
     </div>
   </div>
+</div>
 </template>
+
 
 <style scoped>
 .navbar {

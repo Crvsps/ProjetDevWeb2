@@ -31,46 +31,21 @@
           <router-link to="/profil">Profil</router-link>
         </div>
       </div>
-      <div class="nav-right">
-        <div class="nav-links">
-          <a href="#" @click.prevent="showLogoutConfirm = true">Se déconnecter</a>
-        </div>
-      </div>
     </nav>
 
     <!-- Content -->
     <div class="content" :class="{ 'content-shifted': isSidebarOpen }">
       <!-- Your dashboard content here -->
     </div>
-
-    <!-- Modal de confirmation de déconnexion -->
-    <div v-if="showLogoutConfirm" class="logout-modal-overlay">
-      <div class="logout-modal">
-        <h3>Confirmation</h3>
-        <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
-        <div class="logout-modal-buttons">
-          <button class="cancel-btn" @click="showLogoutConfirm = false">Annuler</button>
-          <button class="confirm-btn" @click="confirmLogout">Confirmer</button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useAuth } from '@/store/useAuth'
+
 
 export default defineComponent({
   name: 'DashboardData',
-  setup() {
-    // Initialiser le store d'authentification au niveau du setup
-    const auth = useAuth()
-    
-    return {
-      auth // Rendre le store disponible dans le template et les méthodes
-    }
-  },
   data() {
     return {
       isSidebarOpen: false,
@@ -81,13 +56,6 @@ export default defineComponent({
     toggleSidebar(): void {
       this.isSidebarOpen = !this.isSidebarOpen
     },
-    confirmLogout() {
-      // Fermer le modal
-      this.showLogoutConfirm = false
-      
-      // Utiliser l'instance du store déjà initialisée
-      this.auth.logoutUser()
-    }
   }
 })
 </script>

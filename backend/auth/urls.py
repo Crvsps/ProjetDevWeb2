@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import CreateAccount, LoginPage, LogoutPage
+from . import views
 
 urlpatterns = [
-    path('register/', CreateAccount.as_view()),
-    path('login/', LoginPage.as_view()),
-    path('logout/', LogoutPage.as_view()),
+    path('set-csrf-token', views.set_csrf_token, name='set_csrf_token'),
+    path('login', views.login_view, name='login'),
+    path('logout', views.logout_view, name='logout'),
+    path('user', views.user, name='user'),
+    path('register', views.register, name='register'),
 ]

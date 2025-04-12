@@ -1,37 +1,83 @@
-<script setup lang="ts">
+<script lang="ts">
 import { ref } from 'vue'
-import { useAuth } from '@/store/useAuth'
-import { useRouter } from 'vue-router'
+import { getCSRFToken } from '../store/auth'
+import router from '../router/index'
 
-const username = ref('')
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const router = useRouter()
+export default {
+  setup() {
+    // Définir toutes les données nécessaires avec `ref()`
+    const username = ref('')
+    const email = ref('')
+    const password = ref('')
+    const confirmPassword = ref('')
+    const error = ref('')
+    const success = ref('')
 
-const { signup } = useAuth()
+    // Fonction de création du compte
+    const register = async () => {
 
-const handleSubmit = async () => {
-  if (password.value !== confirmPassword.value) {
-    alert("Les mots de passe ne correspondent pas.")
-    return
-  }
+      if (password.value !== confirmPassword.value) {
+        error.value = "Les mots de passe ne correspondent pas."
+        return
+      }
 
-  try {
-    await signup(username.value, email.value, password.value)
-    router.push('/dashboard')  // Redirection vers le dashboard après l'inscription réussie
-  } catch (error) {
-    console.error('Erreur lors de la création du compte:', error)
-    alert('Erreur lors de la création du compte, essayez un autre nom d\'utilisateur')
+      try {
+        console.log('Envoi de la requête d\'inscription...');
+        const response = await fetch('http://localhost:8000/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+          },
+          body: JSON.stringify({
+            username: username.value,
+            email: email.value,
+            password: password.value
+          }),
+          credentials: 'include'
+        })
+
+      const textResponse = await response.text();
+
+      try {
+        const data = JSON.parse(textResponse);
+
+      if (response.ok) {
+        success.value = 'Inscription réussie! Veuillez vous connecter.'
+        setTimeout(() => {
+          router.push('/login')
+        }, 1000)
+      } else {
+        error.value = data.error || 'Echec de l\'inscription'
+      }
+      } catch (err) {
+        error.value = 'La réponse de l\'API n\'est pas au format attendu.'
+      }
+    
+      } catch (err) {
+        error.value = 'Une erreur est survenue lors de l\'inscription : ' + err
+      }
+    }
+    // Retourne les variables et la fonction d'enregistrement
+    return {
+      username,
+      email,
+      password,
+      confirmPassword,
+      error,
+      success,
+      register
+    }
   }
 }
 </script>
 
+
 <template>
   <div class="create-account">
-    <form @submit.prevent="handleSubmit" class="account-form">
+    <form @submit.prevent="register" class="account-form">
       <h2>Créer un compte</h2>
-      
+
       <div class="form-group">
         <label for="username">Nom d'utilisateur</label>
         <input 
@@ -75,6 +121,9 @@ const handleSubmit = async () => {
           placeholder="Confirmez votre mot de passe"
         >
       </div>
+
+      <p v-if="error" class="error-message">{{ error }}</p>
+      <p v-if="success" class="success-message">{{ success }}</p>
 
       <button type="submit" class="btn-submit">Créer mon compte</button>
     </form>
@@ -154,4 +203,22 @@ input:focus {
 .btn-submit:active {
   transform: translateY(0);
 }
-</style> 
+
+.error-message {
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.success-message {
+  color: #16a34a;
+  background: #d1fae5;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+</style>
