@@ -34,6 +34,10 @@ class Objet(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Inactif')
     image = models.ImageField(upload_to='upload/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='upload/', blank=True, null=True)
+    marque = models.CharField(max_length = 100, blank = True, null = True)
+    consommation = models.DecimalField(max_digits=6, decimal_places=2, blank = True, null=True) #en kWh
+    localisation = models.CharField(max_length=255, blank=True,null=True)
+    derniere_maintenance = models.DateField(blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
     
     class Meta:

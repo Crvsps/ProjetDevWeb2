@@ -35,10 +35,38 @@
             </div>
 
             <div class="field">
+            <label class="label">Localisation</label>
+            <div class="control">
+              <input v-model="objet.localisation" class="input" type="text" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Consommation en kWh</label>
+            <div class="control">
+              <input v-model="objet.consommation" class="input" type="text" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Dernière maintenance</label>
+            <div class="control">
+              <input v-model="objet.derniere_maintenance" class="input" type="date" />
+            </div>
+          </div>
+
+            <div class="field">
                 <label class="label">Image</label>
                 <div class="control">
                     <input type="file" @change="onImageChange" class="input" />
                 </div>
+            </div>
+
+            <div class="field mt-2" v-if="objet.image">
+              <label class="checkbox">
+                <input type="checkbox" v-model="supprimerImage" />
+                Supprimer l'image actuelle
+              </label>
             </div>
             
             <button type="submit" class="button is-primary mt-4">
@@ -59,6 +87,7 @@
       return {
         objet: {},
         imageFile : null,
+        supprimerImage : false,
       }
     },
     mounted() {
@@ -83,14 +112,22 @@
       updateObjet() {
         const { category_slug, object_slug } = this.$route.params
 
-        const formData = new FormData();
-        formData.append('name', this.objet.name)
-        formData.append('description', this.objet.description)
-        formData.append('status', this.objet.status)
-        formData.append('category', this.objet.category)
+        const formData = new FormData()
+      formData.append('name', this.objet.name)
+      formData.append('description', this.objet.description)
+      formData.append('status', this.objet.status)
+      formData.append('category', this.objet.category)
+      formData.append('localisation', this.objet.localisation)
+      formData.append('consommation', this.objet.consommation)
+      formData.append('derniere_maintenance', this.objet.derniere_maintenance)
+
 
         if (this.imageFile) {
             formData.append('image' , this.imageFile)
+        }
+
+        if (this.supprimerImage) {
+            formData.append('supprimer_image', 'true')
         }
   
         axios
