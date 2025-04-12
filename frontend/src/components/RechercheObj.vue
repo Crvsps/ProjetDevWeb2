@@ -12,7 +12,7 @@
           <p class ="is-size-6-has-text-grey">{{objet.status }}</p>
 
           <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4">Détails </router-link>
-          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class=button is-warnig mt-2 ml-2>Modifier</router-link>
+          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class=button is-warning mt-2 ml-2>Modifier</router-link>
           <button @click="deleteObjet(objet.category_slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
         </div>
      </div>
@@ -44,7 +44,7 @@ export default {
   methods: {
     getLastestProducts(){
       axios
-        .get('latest-objets/')
+        .get('/api/v1/latest-objets/')
         .then(response => {
           this.latestObjets = response.data
         })
