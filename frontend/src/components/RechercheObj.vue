@@ -97,3 +97,59 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .search-container {
+    padding: 2rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  
+h1 {
+  font-size: 2.5rem;
+  color: #2563eb;
+  margin-top: 3rem;
+  text-align: center;
+}
+  
+
+button {
+ padding: 0.875rem;
+ margin-top: 1rem;
+ background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+ color: white;
+ border: none;
+ border-radius: 8px;
+ font-size: 1rem;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+}
+  
+button:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+  
+ul {
+ list-style-type: none;
+ padding-left: 0;
+}
+  
+li {
+ margin-bottom: 1rem;
+}
+</style>
+  
