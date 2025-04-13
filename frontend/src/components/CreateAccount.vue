@@ -39,63 +39,6 @@
         />
       </div>
 
-      <!-- 
-      <div class="form-group">
-        <label for="date_of_birth">Date de naissance</label>
-        <input
-          type="date"
-          id="date_of_birth"
-          v-model="user.date_of_birth"
-          required
-        />
-      </div>
-      
-
-      <div class="form-group">
-        <label for="gender">Genre</label>
-        <select
-          id="gender"
-          v-model="user.gender"
-          required
-        >
-          <option value="">Sélectionner</option>
-          <option value="male">Homme</option>
-          <option value="female">Femme</option>
-          <option value="other">Autre</option>
-        </select>
-      </div>
-
-    
-
-      <div class="form-group">
-        <label for="user_type">Type d'utilisateur</label>
-        <select
-          id="user_type"
-          v-model="user.user_type"
-          required
-        >
-          <option value="">Sélectionner</option>
-          <option value="Élève">Élève</option>
-          <option value="Professeur">Professeur</option>      
-          <option value="Administrateur">Administrateur</option>         
-          <option value="Parent">Parent</option>      
-          <option value="Maintenance">Maintenance</option>
-        </select>
-      </div>
-
-      
-
-      <div class="form-group">
-        <label for="photo">Photo de profil</label>
-        <input
-          type="file"
-          id="photo"
-          @change="handleFileUpload"
-        />
-      </div>
-
-      -->
-
       <div class="form-group">
         <label for="password">Mot de passe</label>
         <input
