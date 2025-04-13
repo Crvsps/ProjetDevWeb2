@@ -119,8 +119,9 @@
           })
           .then((response) => {
             alert('Objet mis à jour !')
+            console.log()
             const newSlug = response.data.slug
-            this.$router.push(`/${category_slug}/${newSlug}`)
+            this.$router.push(`/${category_slug}/${newSlug}/`)
           })
           .catch((err) => {
             console.log(err)
