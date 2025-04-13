@@ -30,6 +30,22 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+interface Article {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  category: string;
+  image: string;
+}
+
+interface ComponentData {
+  selectedCategory: string;
+  articles: Article[];
+}
+
+
 export default defineComponent({
   name: 'ActualitesSchool',
   data() {
@@ -67,21 +83,21 @@ export default defineComponent({
     }
   },
   computed: {
-    filteredArticles() {
+    filteredArticles(): Article[] {
       if (!this.selectedCategory) return this.articles
-      return this.articles.filter(article => article.category === this.selectedCategory)
+      return this.articles.filter((article: Article) => article.category === this.selectedCategory)
     }
   },
+  
   methods: {
-    formatDate(date: string) {
+    formatDate(date: string): string {
       return new Date(date).toLocaleDateString('fr-FR', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       })
     },
-    showArticle(article: any) {
-      // Implement article detail view logic
+    showArticle(article: Article): void {
       console.log('Show article:', article.id)
     }
   }
