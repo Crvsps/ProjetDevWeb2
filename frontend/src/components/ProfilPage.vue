@@ -53,6 +53,9 @@
             </select>
           </div>
 
+          <p><strong>Points :</strong> {{ user.points }}</p>
+
+
           <button type="submit" class="btn btn-success mt-3">Sauvegarder</button>
         </div>
       </div>

@@ -55,7 +55,7 @@ export default {
       
       UserService.login(this.user)
         .then(() => {
-          this.$router.push('/profile');
+          this.$router.push('/profil');
         })
         .catch(error => {
           this.message = error.response?.data?.non_field_errors || 'Erreur de connexion, vérifiez vos identifiants';

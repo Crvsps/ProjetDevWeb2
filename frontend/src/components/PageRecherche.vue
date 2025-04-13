@@ -43,7 +43,7 @@ export default {
     methods: {
          performSearch() {
             axios
-            .post ('objets/search/', {"query":this.query})
+            .post ('/api/v1/objets/search/', {"query":this.query})
             .then (response => {
                 this.objects = response.data
             })

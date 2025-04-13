@@ -11,6 +11,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ObjetSerializer(serializers.ModelSerializer):
     
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    category_detail = CategorySerializer(source='category', read_only=True)
     
     class Meta:
         model = Objet
@@ -24,6 +25,7 @@ class ObjetSerializer(serializers.ModelSerializer):
             "get_image",
             "get_thumbnail",
             "category",
+            "category_detail",
             "date_added",
             "marque",
             "consommation",
