@@ -7,12 +7,15 @@ defineProps<{
 <template>
   <nav class="navbar">
     <ul class="nav-links">
-      <li v-if="!isLoggedIn">
+      <li><router-link to="/">
         <span class="cyber-school-link">CYber School</span>
-      </li>
-      <li><router-link to="/">Accueil</router-link></li>
+      </router-link></li>
+      <!-- <li><router-link to="/">Accueil</router-link></li> -->
+      <li><router-link to="/actualites">Actualités</router-link></li>
       <li v-if="isLoggedIn"><router-link to="/recherche-objet">Objets</router-link></li>
       <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
+      <!-- <li v-if="!isLoggedIn"><router-link to="/">Informations</router-link></li> -->
+      <li v-if="!isLoggedIn"><router-link to="/AideSchool">Aide</router-link></li>
     </ul>
 
     <div class="navbar-start">
@@ -108,12 +111,15 @@ backdrop-filter: blur(8px);
 }
 
 .nav-links {
-display: flex;
-gap: 2.5rem;
-list-style: none;
-margin: 0;
-padding: 0;
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
+
+
 
 .nav-links a {
 text-decoration: none;

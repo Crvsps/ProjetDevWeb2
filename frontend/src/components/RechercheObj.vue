@@ -11,8 +11,8 @@
           <h3 class ="is-size-4">{{objet.name}}</h3>
           <p class ="is-size-6-has-text-grey">{{objet.status }}</p>
 
-          <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4">Détails </router-link>
-          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class=button is-warning mt-2 ml-2>Modifier</router-link>
+          <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4"><button>Détails</button> </router-link>
+          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class="button is-warning mt-2 ml-2"><button>Modifier</button></router-link>
           <button @click="deleteObjet(objet.category.slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
         </div>
      </div>
@@ -89,25 +89,32 @@ export default {
     margin-top: 0.5rem;
   }
   
-  button {
-    padding: 0.75rem 1.5rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
+
+button {
+ padding: 0.875rem;
+ margin-top: 1rem;
+ background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+ color: white;
+ border: none;
+ border-radius: 8px;
+ font-size: 1rem;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+}
   
-  button:hover {
-    background-color: #45a049;
-  }
+button:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
   
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
+ul {
+ list-style-type: none;
+ padding-left: 0;
+}
   
-  li {
-    margin-bottom: 1rem;
-  }
-  </style>
+li {
+ margin-bottom: 1rem;
+}
+</style>
   
