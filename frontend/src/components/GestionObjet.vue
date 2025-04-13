@@ -131,7 +131,7 @@
         }
   
         axios
-          .put(`/api/v1/objets/${category_slug}/${object_slug}`, formData, {
+          .put(`/api/v1/objets/${category_slug}/${object_slug}/`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
