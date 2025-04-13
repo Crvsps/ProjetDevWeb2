@@ -43,7 +43,7 @@ defineProps<{
         <router-link :to="{name: 'login'}" class="btn btn-login">Se connecter</router-link>
       </template>
       <div v-else>
-        <router-link to="/profile" class="btn btn-signup">Aller au profil</router-link>
+        <router-link to="/profil" class="btn btn-signup">Aller au profil</router-link>
         <button @click="logout" class="btn btn-login">Se déconnecter</button>
       </div>
       
@@ -82,12 +82,10 @@ export default defineComponent({
       this.isLoggedIn = !!localStorage.getItem('token')
     },
     logout() {
-      const confirmation = window.confirm("Voulez-vous vraiment vous déconnecter ?");
-      if (confirmation) {
-        localStorage.removeItem('token');
-        this.isLoggedIn = false;
-        this.$router.push('/login');
-      }
+      localStorage.removeItem('token');
+      this.isLoggedIn = false;
+      this.$router.push('/login');
+      
     }
   }
 })
