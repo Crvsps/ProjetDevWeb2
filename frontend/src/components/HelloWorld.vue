@@ -7,12 +7,12 @@ defineProps<{
 <template>
   <nav class="navbar">
     <ul class="nav-links">
-      <li><router-link to="/">Accueil</router-link></li>
-      <li v-if="isLoggedIn"><router-link to="/recherche-objet">Objets</router-link></li>
-      <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
       <li v-if="!isLoggedIn">
         <span class="cyber-school-link">CYber School</span>
       </li>
+      <li><router-link to="/">Accueil</router-link></li>
+      <li v-if="isLoggedIn"><router-link to="/recherche-objet">Objets</router-link></li>
+      <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
     </ul>
 
     <div class="navbar-start">
