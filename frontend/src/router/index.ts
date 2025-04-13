@@ -13,6 +13,7 @@ import DetailObjet from '../components/DetailObjet.vue'
 import PageRecherche from '../components/PageRecherche.vue'
 import GestionObjet from '@/components/GestionObjet.vue'
 import AjouterObjet from '@/components/AjouterObjet.vue'
+import AideSchool from '../components/AideSchool.vue'
 
 
 const router = createRouter({
@@ -88,10 +89,15 @@ const router = createRouter({
       name: 'gestion',
       component: GestionObjet
     },
+    {
+      path: '/AideSchool',
+      name: 'AideSchool',
+      component: AideSchool
+    }
   ]});
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/', '/login', '/register'];
+  const publicPages = ['/', '/login', '/register','/AideSchool'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('token');
 
