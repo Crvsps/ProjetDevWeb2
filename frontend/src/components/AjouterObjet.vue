@@ -177,10 +177,7 @@ export default {
 }
 
 .title {
-  font-size: 2.5rem;
-  color: #2563eb;
-  margin-top: 3rem;
-  text-align: center;
+  color: #2c3e50;
 }
 
 .input {
