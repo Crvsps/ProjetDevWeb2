@@ -1,82 +1,63 @@
 <template>
-    <div class="page-product">
-      <h1 class="title">Modifier l’objet</h1>
-  
-      <div class="columns">
-        <div class="column is-8">
-          <form @submit.prevent="updateObjet">
-            <div class="field">
-              <label class="label">Nom</label>
-              <div class="control">
-                <input v-model="objet.name" class="input" type="text" required />
-              </div>
-            </div>
-  
-            <div class="field">
-              <label class="label">Description</label>
-              <div class="control">
-                <textarea v-model="objet.description" class="textarea"></textarea>
-              </div>
-            </div>
-  
-            <div class="field">
-              <label class="label">Statut</label>
-              <div class="control">
-                <div class="select">
-                  <select v-model="objet.status">
-                    <option>Actif</option>
-                    <option>Inactif</option>
-                    <option>Maintenance</option>
-                    <option>Hors-Service</option>
-                    <option>Occupé</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+  <div class="form-page-container">
+    <div class="form-container">
+      <h2>Modifier l’objet</h2>
 
-            <div class="field">
-            <label class="label">Localisation</label>
-            <div class="control">
-              <input v-model="objet.localisation" class="input" type="text" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Consommation en kWh</label>
-            <div class="control">
-              <input v-model="objet.consommation" class="input" type="text" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Dernière maintenance</label>
-            <div class="control">
-              <input v-model="objet.derniere_maintenance" class="input" type="date" />
-            </div>
-          </div>
-
-            <div class="field">
-                <label class="label">Image</label>
-                <div class="control">
-                    <input type="file" @change="onImageChange" class="input" />
-                </div>
-            </div>
-
-            <div class="field mt-2" v-if="objet.image">
-              <label class="checkbox">
-                <input type="checkbox" v-model="supprimerImage" />
-                Supprimer l'image actuelle
-              </label>
-            </div>
-            
-            <button type="submit" class="button is-primary mt-4">
-              Enregistrer les modifications
-            </button>
-          </form>
+      <form @submit.prevent="updateObjet" class="account-form">
+        <div class="form-group">
+          <label for="name">Nom</label>
+          <input v-model="objet.name" id="name" type="text" required placeholder="Nom de l'objet" />
         </div>
-      </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea v-model="objet.description" id="description" rows="3" placeholder="Décrivez l'objet"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Statut</label>
+          <select v-model="objet.status" id="status">
+            <option>Actif</option>
+            <option>Inactif</option>
+            <option>Maintenance</option>
+            <option>Hors-Service</option>
+            <option>Occupé</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="localisation">Localisation</label>
+          <input v-model="objet.localisation" id="localisation" type="text" placeholder="Lieu de l'objet" />
+        </div>
+
+        <div class="form-group">
+          <label for="consommation">Consommation en kWh</label>
+          <input v-model="objet.consommation" id="consommation" type="number" step="0.01" />
+        </div>
+
+        <div class="form-group">
+          <label for="maintenance">Dernière maintenance</label>
+          <input v-model="objet.derniere_maintenance" id="maintenance" type="date" />
+        </div>
+
+        <div class="form-group">
+          <label for="image">Image</label>
+          <input type="file" @change="onImageChange" id="image" />
+        </div>
+
+        <div class="form-group" v-if="objet.image">
+          <label class="checkbox">
+            <input type="checkbox" v-model="supprimerImage" />
+            Supprimer l'image actuelle
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit">Enregistrer les modifications</button>
+      </form>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <script>
   import axios from 'axios'
@@ -150,3 +131,92 @@
   }
   </script>
   
+<style scoped>
+.form-page-container {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+h2 {
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #475569;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  background: white;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.checkbox {
+  font-size: 0.95rem;
+  color: #475569;
+}
+</style>
