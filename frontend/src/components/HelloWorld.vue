@@ -82,10 +82,12 @@ export default defineComponent({
       this.isLoggedIn = !!localStorage.getItem('token')
     },
     logout() {
-      localStorage.removeItem('token');
-      this.isLoggedIn = false;
-      this.$router.push('/login');
-      
+      const confirmation = window.confirm("Voulez-vous vraiment vous déconnecter ?");
+      if (confirmation) {
+        localStorage.removeItem('token');
+        this.isLoggedIn = false;
+        this.$router.push('/login');
+      }
     }
   }
 })

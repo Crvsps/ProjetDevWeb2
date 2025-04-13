@@ -1,35 +1,41 @@
 <template>
-  <div class="login">
-    <h2>Connexion</h2>
-    <form @submit.prevent="handleLogin">
-      <div class="form-group">
-        <label for="username">Nom d'utilisateur</label>
-        <input
-          type="text"
-          id="username"
-          v-model="user.username"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input
-          type="password"
-          id="password"
-          v-model="user.password"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" :disabled="loading">
+  <div class="login-container">
+    <div class="login">
+      <form @submit.prevent="handleLogin" class="account-form">
+        <h2>Connexion</h2>
+
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input
+            type="text"
+            id="username"
+            v-model="user.username"
+            required
+            placeholder="Entrez votre nom d'utilisateur"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            v-model="user.password"
+            required
+            placeholder="Entrez votre mot de passe"
+          />
+        </div>
+
+        <button type="submit" class="btn-submit" :disabled="loading">
           <span v-if="loading">Chargement...</span>
           <span v-else>Se connecter</span>
         </button>
-      </div>
-      <div v-if="message" class="alert alert-danger">
-        {{ message }}
-      </div>
-    </form>
+
+        <div v-if="message" class="alert alert-danger" style="margin-top: 1rem; color: red;">
+          {{ message }}
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -68,22 +74,32 @@ export default {
 };
 </script>
 
-
 <style scoped>
+.login-container {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
 .login {
-  max-width: 400px;
-  margin: 2rem auto;
+  max-width: 500px;
+  margin: 0 auto;
   padding: 2rem;
+}
+
+.account-form {
   background: white;
+  padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 h2 {
+  font-size: 2.5rem;
   color: #2563eb;
-  text-align: center;
   margin-bottom: 2rem;
-  font-size: 1.8rem;
+  text-align: center;
 }
 
 .form-group {
@@ -93,8 +109,9 @@ h2 {
 label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #4b5563;
+  color: #475569;
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 input {

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- Titre plus grand -->
+    <h1 style="text-align: center; font-size: 36px;">Fiche de l'objet : {{ objet.name }}</h1>
+    
+    <!-- Image de l'objet -->
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="{{ objet.get_image }}" alt="Image de l'objet" style="max-width: 500px; height: auto;">
+    </div>
+    
+    <!-- Tableau des informations -->
+    <div class="info">
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px;">
+            <tr>
+                <th>Description</th>
+                <td>{{ objet.description }}</td>
+            </tr>
+            <tr>
+                <th>Catégorie</th>
+                <td>
+                    {% if objet.category_detail %}
+                        {{ objet.category_detail.name }}
+                    {% else %}
+                        Non renseignée
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ objet.status }}</td>
+            </tr>
+            <tr>
+                <th>Date ajout</th>
+                <td>{{ objet.date_added }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ objet.marque }}</td>
+            </tr>
+            <tr>
+                <th>Consommation</th>
+                <td>{{ objet.consommation }} kWh</td>
+            </tr>
+            <tr>
+                <th>Dernière maintenance</th>
+                <td>
+                    {% if objet.derniere_maintenance %}
+                        {{ objet.derniere_maintenance }}
+                    {% else %}
+                        Non renseignée
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>{{ objet.localisation }}</td>
+            </tr>
+        </table>
+        
+        <!-- Alerte si consommation > 100 kWh -->
+        {% if objet.consommation > 100 %}
+            <p style="color: red; font-weight: bold; font-size: 24px; text-align: center;">Attention : Maintenance immédiate nécessaire ! Consommation trop élevée.</p>
+            <p style="color: red; font-weight: bold; font-size: 18px; text-align: center;">Veuillez contacter un administrateur.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
