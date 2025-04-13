@@ -35,7 +35,7 @@ const router = createRouter({
     },
     {
       path: '/profil',
-      name: 'profil-page',
+      name: 'profil',
       component: ProfilPage
     },
     {
