@@ -69,8 +69,8 @@ export default {
   }
 }
 </script>
-  
-  <style scoped>
+
+<style scoped>
   .search-container {
     padding: 2rem;
   }
@@ -88,6 +88,13 @@ export default {
     padding: 0.75rem;
     margin-top: 0.5rem;
   }
+  
+h1 {
+  font-size: 2.5rem;
+  color: #2563eb;
+  margin-top: 3rem;
+  text-align: center;
+}
   
 
 button {
