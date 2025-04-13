@@ -6,7 +6,14 @@ class UserService {
       username: user.username,
       password: user.password,
       password2: user.password2,
-      email: user.email
+      email: user.email,
+      first_name: user.first_name,  
+      last_name: user.last_name,      
+      date_of_birth: user.date_of_birth,  
+      gender: user.gender,           
+      user_type: user.user_type,    
+      photo: user.photo,              
+      points: user.points             
     });
   }
 
@@ -23,8 +30,6 @@ class UserService {
       return response.data;
     });
   }
-  
-  
 
   logout() {
     return apiClient.post('/api/v1/users/logout/')
@@ -40,7 +45,11 @@ class UserService {
 
   getUserProfile() {
     return apiClient.get('/api/v1/users/profile/');  
-}
+  }
+  updateUserProfile(data) {
+    return apiClient.put('/api/v1/users/profile/', data);
+  }
 }
 
+// Correction : Export de l'instance de UserService
 export default new UserService();

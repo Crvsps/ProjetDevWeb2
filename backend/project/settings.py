@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'objet',
     "users",
     'corsheaders',
-]
+    ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

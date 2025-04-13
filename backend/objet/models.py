@@ -27,7 +27,7 @@ class Objet(models.Model):
         ('Occupé', 'Occupé'),
     ]
     
-    category = models.ForeignKey(Category, related_name='objets', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='objets', on_delete=models.CASCADE, blank = True, null = True)
     name = models.CharField(max_length=255)
     slug = models.SlugField()
     description = models.TextField(blank=True, null=True)
