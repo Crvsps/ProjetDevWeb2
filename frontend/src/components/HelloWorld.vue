@@ -45,6 +45,8 @@ defineProps<{
       <div v-else>
         <router-link :to="{name: 'profil'}" class="btn btn-login">Profil</router-link>
         <button @click="logout" class="btn btn-signup btn-logout">Se déconnecter</button>
+        <router-link to="/profile" class="btn btn-signup">Aller au profil</router-link>
+        <button @click="logout" class="btn btn-login">Se déconnecter</button>
       </div>
       
     </div>
