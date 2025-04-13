@@ -11,6 +11,7 @@ defineProps<{
         <span class="cyber-school-link">CYber School</span>
       </router-link></li>
       <!-- <li><router-link to="/">Accueil</router-link></li> -->
+      <li><router-link to="/actualites">Actualités</router-link></li>
       <li v-if="isLoggedIn"><router-link to="/recherche-objet">Objets</router-link></li>
       <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
       <!-- <li v-if="!isLoggedIn"><router-link to="/">Informations</router-link></li> -->
