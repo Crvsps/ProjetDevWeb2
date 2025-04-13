@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import UserProfile
+from django.core.mail import send_mail
+from django.conf import settings
+from rest_framework.response import Response
+
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,6 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
         if User.objects.exclude(pk=user.pk).filter(username=value).exists():
             raise serializers.ValidationError("Ce nom d'utilisateur est déjà pris.")
         return value
+
         
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()

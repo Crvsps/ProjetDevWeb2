@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import Http404
 from django.utils.text import slugify
 from django.http import JsonResponse
-
+from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,6 +15,8 @@ from rest_framework.authentication import TokenAuthentication
 
 from .models import Objet, Category
 from .serializers import ObjetSerializer, CategorySerializer
+from .utils import render_to_pdf
+
 
 class LatestObjectsList(APIView):    
     
@@ -154,3 +156,7 @@ def update_objet(request, category_slug, object_slug):
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
+def generate_objet_pdf(request, objet_id):
+    objet = get_object_or_404(Objet, id=objet_id)
+    context = {'objet': objet}
+    return render_to_pdf('pdf/fiche_objet.html', context)
