@@ -1,8 +1,6 @@
 <template>
     <div class="page-add-product">
       <h1 class="title">Ajouter un objet</h1>
-        
-        <TestAuth/>  
 
       <div class="columns">
         <div class="column is-8">
@@ -97,7 +95,6 @@
 
 <script>
 import axios from "axios";
-import TestAuth from "./TestAuth.vue";
 
 
 export default {
@@ -117,9 +114,6 @@ export default {
       imageFile: null,
       categories: []
     };
-  },
-  components: {
-    TestAuth
   },
   mounted() {
     this.getCategories();
@@ -173,3 +167,66 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+.field{
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.title {
+  color: #2c3e50;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.textarea{
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+select{
+  width: 110%;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.button.is-primary {
+  width: 50%;
+  padding: 0.875rem;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button.is-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+</style>
