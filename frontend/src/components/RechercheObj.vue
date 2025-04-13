@@ -72,23 +72,56 @@ export default {
 </script>
 
 <style scoped>
-  .search-container {
-    padding: 2rem;
+.search-container {
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.box {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.column-3 {
+  display: inline-block;
+  width: calc(33.333% - 2rem);
+  vertical-align: top;
+  margin: 1rem;
+}
+
+@media (max-width: 768px) {
+  .column-3 {
+    width: calc(50% - 2rem);
   }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .column-3 {
+    width: calc(100% - 2rem);
   }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-  }
+}
   
 h1 {
   font-size: 2.5rem;
@@ -99,9 +132,9 @@ h1 {
   
 .action-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 0.4rem;
   margin: 0.5rem 0;
-  justify-content: start;
+  justify-content: center;
 }
 
 button {
