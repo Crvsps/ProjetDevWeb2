@@ -42,34 +42,44 @@ defineProps<{
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+import type { Router } from 'vue-router'
+
+interface ComponentData {
+  isLoggedIn: boolean;
+}
+
+export default defineComponent({
   name: 'HelloWorld',
-  data() {
+  
+  data(): ComponentData {
     return {
       isLoggedIn: false
     }
   },
+
   created() {
-  this.isLoggedIn = !!localStorage.getItem('token')
-  window.addEventListener('storage', () => {
-    this.checkLoginStatus()
-  })
-},
+    this.isLoggedIn = !!localStorage.getItem('token')
+    window.addEventListener('storage', this.checkLoginStatus)
+  },
+
   beforeUnmount() {
     window.removeEventListener('storage', this.checkLoginStatus)
   },
+
   methods: {
-    checkLoginStatus() {
+    checkLoginStatus(): void {
       this.isLoggedIn = !!localStorage.getItem('token')
     },
-    logout() {
+    
+    logout(): void {
       localStorage.removeItem('token')
       this.isLoggedIn = false
       this.$router.push('/login')
     }
   }
-}
-</script>
+})
+</script> 
 
 <style scoped>
 .navbar {
