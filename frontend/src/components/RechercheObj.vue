@@ -8,13 +8,25 @@
           <figure class="image mb-4">
             <img :src="objet.get_thumbnail">
           </figure>
-          <h3 class ="is-size-4">{{objet.name}}</h3>
-          <p class ="is-size-6-has-text-grey">{{objet.status }}</p>
-          <div class="action-buttons">
-            <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4"><button>Détails</button> </router-link>  
-            <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class="button is-warning mt-2 ml-2"><button>Modifier</button></router-link>
-            <button @click="deleteObjet(objet.category_detail.slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
-          </div>
+          <h3 class="is-size-4">{{ objet.name }}</h3>
+          <p class="is-size-6-has-text-grey">{{ objet.status }}</p>
+
+          <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4">
+            <button>Détails</button> 
+          </router-link>
+
+          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class="button is-warning mt-2 ml-2">
+            <button>Modifier</button>
+          </router-link>
+
+          <button @click="deleteObjet(objet.category_detail.slug, objet.slug)" class="button is-danger mt-2 ml-2">
+            Supprimer
+          </button>
+
+          <!-- Nouveau bouton pour générer le PDF avec ID de l'objet -->
+          <button @click="generatePDF(objet.id)" class="button is-info mt-2 ml-2">
+            Générer PDF
+          </button>
         </div>
      </div>
   </div>
