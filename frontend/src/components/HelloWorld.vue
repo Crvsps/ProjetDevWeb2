@@ -50,12 +50,11 @@ export default {
     }
   },
   created() {
-    // Vérifier si le token existe dans le localStorage
-    this.isLoggedIn = !!localStorage.getItem('token')
-    
-    // Écouter les changements d'authentification
-    window.addEventListener('storage', this.checkLoginStatus)
-  },
+  this.isLoggedIn = !!localStorage.getItem('token')
+  window.addEventListener('storage', () => {
+    this.checkLoginStatus()
+  })
+},
   beforeUnmount() {
     window.removeEventListener('storage', this.checkLoginStatus)
   },

@@ -40,11 +40,11 @@
             <label class="label">Catégorie</label>
                 <div class="control">
                     <div class="select">
-                    <select v-model="newObjet.category_slug" required>
-                        <option v-for="category in categories" :key="category.id" :value="category.slug">
-                        {{ category.name }}
-                        </option>
-                    </select>
+                      <select v-model="newObjet.category_id" required>
+                          <option v-for="category in categories" :key="category.id" :value="category.id">
+                              {{ category.name }}
+                          </option>
+                      </select>
                     </div>
                 </div>
             </div>
@@ -132,6 +132,7 @@ export default {
           this.categories = response.data;
         })
         .catch((error) => {
+
           console.error("Erreur lors de la récupération des catégories", error);
         });
     },
@@ -148,7 +149,8 @@ export default {
       formData.append("consommation", this.newObjet.consommation);
       formData.append("localisation", this.newObjet.localisation);
       formData.append("derniere_maintenance", this.newObjet.derniere_maintenance);
-
+      formData.append("category", this.newObjet.category_id);
+      
       if (this.imageFile) {
         formData.append("image", this.imageFile);
       }
@@ -163,6 +165,7 @@ export default {
           alert("Objet ajouté !");
         })
         .catch((err) => {
+          console.log('Erreur détaillée :', err.response.data)
           console.log(err);
           alert("Erreur lors de l'ajout de l'objet");
         });

@@ -10,7 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ObjetSerializer(serializers.ModelSerializer):
     
-    category = CategorySerializer(read_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     
     class Meta:
         model = Objet
