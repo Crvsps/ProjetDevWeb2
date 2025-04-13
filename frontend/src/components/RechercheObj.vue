@@ -10,10 +10,11 @@
           </figure>
           <h3 class ="is-size-4">{{objet.name}}</h3>
           <p class ="is-size-6-has-text-grey">{{objet.status }}</p>
-
-          <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4"><button>Détails</button> </router-link>
-          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class="button is-warning mt-2 ml-2"><button>Modifier</button></router-link>
-          <button @click="deleteObjet(objet.category_detail.slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
+          <div class="action-buttons">
+            <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4"><button>Détails</button> </router-link>  
+            <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class="button is-warning mt-2 ml-2"><button>Modifier</button></router-link>
+            <button @click="deleteObjet(objet.category_detail.slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
+          </div>
         </div>
      </div>
   </div>
@@ -96,18 +97,27 @@ h1 {
   text-align: center;
 }
   
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  justify-content: start;
+}
 
 button {
- padding: 0.875rem;
- margin-top: 1rem;
- background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
- color: white;
- border: none;
- border-radius: 8px;
- font-size: 1rem;
- font-weight: 600;
- cursor: pointer;
- transition: all 0.3s ease;
+  flex: 0 0 auto; /* Remove flex grow, allow natural width */
+  text-align: center;
+  padding: 0.875rem 1.5rem; /* Add horizontal padding */
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevent text wrapping */
 }
   
 button:hover {
