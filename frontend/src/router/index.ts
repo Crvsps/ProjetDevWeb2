@@ -75,11 +75,6 @@ const router = createRouter({
       name: 'dashboard-advanced',
       component: DashboardAdvanced
     },
-	{
-      path: '/objects-advanced',
-      name: 'objects-advanced',
-      component: ObjectsAdvanced
-    },
     {
       path: '/:category_slug/:object_slug',
       name: 'detail',
