@@ -10,10 +10,11 @@
           </figure>
           <h3 class ="is-size-4">{{objet.name}}</h3>
           <p class ="is-size-6-has-text-grey">{{objet.status }}</p>
-
-          <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4"><button>Détails</button> </router-link>
-          <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class="button is-warning mt-2 ml-2"><button>Modifier</button></router-link>
-          <button @click="deleteObjet(objet.category_detail.slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
+          <div class="action-buttons">
+            <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4"><button>Détails</button> </router-link>  
+            <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class="button is-warning mt-2 ml-2"><button>Modifier</button></router-link>
+            <button @click="deleteObjet(objet.category_detail.slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
+          </div>
         </div>
      </div>
   </div>
@@ -71,23 +72,56 @@ export default {
 </script>
 
 <style scoped>
-  .search-container {
-    padding: 2rem;
+.search-container {
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.box {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.column-3 {
+  display: inline-block;
+  width: calc(33.333% - 2rem);
+  vertical-align: top;
+  margin: 1rem;
+}
+
+@media (max-width: 768px) {
+  .column-3 {
+    width: calc(50% - 2rem);
   }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .column-3 {
+    width: calc(100% - 2rem);
   }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-  }
+}
   
 h1 {
   font-size: 2.5rem;
@@ -96,18 +130,27 @@ h1 {
   text-align: center;
 }
   
+.action-buttons {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+  justify-content: center;
+}
 
 button {
- padding: 0.875rem;
- margin-top: 1rem;
- background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
- color: white;
- border: none;
- border-radius: 8px;
- font-size: 1rem;
- font-weight: 600;
- cursor: pointer;
- transition: all 0.3s ease;
+  flex: 0 0 auto; /* Remove flex grow, allow natural width */
+  text-align: center;
+  padding: 0.875rem 1.5rem; /* Add horizontal padding */
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevent text wrapping */
 }
   
 button:hover {

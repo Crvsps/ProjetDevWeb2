@@ -43,8 +43,8 @@ defineProps<{
         <router-link :to="{name: 'login'}" class="btn btn-login">Se connecter</router-link>
       </template>
       <div v-else>
-        <router-link to="/profil" class="btn btn-signup">Aller au profil</router-link>
-        <button @click="logout" class="btn btn-login">Se déconnecter</button>
+        <router-link :to="{name: 'profil'}" class="btn btn-login">Profil</router-link>
+        <button @click="logout" class="btn btn-signup btn-logout">Se déconnecter</button>
       </div>
       
     </div>
@@ -209,6 +209,7 @@ transition: all 0.3s ease;
 display: flex;
 align-items: center;
 justify-content: center;
+margin: 0 0.5rem;
 }
 
 .button .icon {
@@ -224,7 +225,12 @@ box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 
 .nav-buttons {
 display: flex;
-gap: 1.2rem;
+gap: 1rem;
+}
+
+.nav-buttons >div{
+display: flex;
+gap: 1rem;
 }
 
 .btn {
@@ -266,6 +272,14 @@ box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 transform: translateY(-2px);
 box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
 background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.08) !important;
+  color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15) !important;
 }
 
 .btn:active {
