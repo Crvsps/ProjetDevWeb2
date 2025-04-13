@@ -2,6 +2,8 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.http import Http404
 from django.utils.text import slugify
+from django.http import JsonResponse
+
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -76,14 +78,6 @@ class AddObjet(APIView):
     def post(self, request, format=None):
         data = request.data.copy()
         
-        category_slug = data.get('category_slug')
-        try:
-            category = Category.objects.get(slug=category_slug)
-        except Category.DoesNotExist:
-            return Response({"detail": "Category not found."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        data['category'] = category.id
-        
         if 'name' in data:
             data['slug'] = slugify(data['name'])
 
@@ -98,6 +92,8 @@ class AddObjet(APIView):
                     data.thumbnail = data.make_thumbnail(data.image)
         
         serializer = ObjetSerializer(data=data)
+        
+        print ("voici le serializer : ",serializer)
         
         if serializer.is_valid():
             serializer.save()

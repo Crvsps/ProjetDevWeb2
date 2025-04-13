@@ -7,6 +7,9 @@ defineProps<{
 <template>
   <nav class="navbar">
     <ul class="nav-links">
+      <li v-if="!isLoggedIn">
+        <span class="cyber-school-link">CYber School</span>
+      </li>
       <li><router-link to="/">Accueil</router-link></li>
       <li v-if="isLoggedIn"><router-link to="/recherche-objet">Objets</router-link></li>
       <li v-if="isLoggedIn"><router-link to="/ajouter-objet">Ajouter un objet</router-link></li>
@@ -46,25 +49,33 @@ defineProps<{
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+import type { Router } from 'vue-router'
+
+interface ComponentData {
+  isLoggedIn: boolean;
+}
+
+export default defineComponent({
   name: 'HelloWorld',
-  data() {
+  
+  data(): ComponentData {
     return {
       isLoggedIn: false
     }
   },
+
   created() {
-    // Vérifier si le token existe dans le localStorage
     this.isLoggedIn = !!localStorage.getItem('token')
-    
-    // Écouter les changements d'authentification
     window.addEventListener('storage', this.checkLoginStatus)
   },
+
   beforeUnmount() {
     window.removeEventListener('storage', this.checkLoginStatus)
   },
+
   methods: {
-    checkLoginStatus() {
+    checkLoginStatus(): void {
       this.isLoggedIn = !!localStorage.getItem('token')
     },
     logout() {
@@ -76,8 +87,8 @@ export default {
       }
     }
   }
-}
-</script>
+})
+</script> 
 
 <style scoped>
 .navbar {
@@ -306,5 +317,23 @@ order: 3;
 body {
 padding-top: 150px;
 }
+}
+
+.cyber-school-link {
+  background: linear-gradient(45deg, #ae00ff, #00b7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+  font-size: 1.5em;  /* Increased from 1.2em */
+  text-shadow: 2px 2px 4px rgba(0, 255, 136, 0.2);
+  padding: 0.6em;    /* Slightly increased padding */
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.cyber-school-link:hover {
+  transform: scale(1.05);
+  text-shadow: 3px 3px 6px rgba(0, 166, 255, 0.3);
 }
 </style>

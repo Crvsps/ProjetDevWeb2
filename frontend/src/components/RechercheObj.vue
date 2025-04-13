@@ -13,7 +13,7 @@
 
           <router-link v-bind:to="objet.get_absolute_url" class="button is-dark mt-4">Détails </router-link>
           <router-link v-bind:to="`/gestion${objet.get_absolute_url}`" class=button is-warning mt-2 ml-2>Modifier</router-link>
-          <button @click="deleteObjet(objet.category_slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
+          <button @click="deleteObjet(objet.category.slug, objet.slug)" class="button is-danger mt-2 ml-2">Supprimer</button>
         </div>
      </div>
   </div>
